@@ -1,0 +1,147 @@
+:root {
+    --main: #007BFF;
+    --blue: #90CAF9;
+    --hover-blue: #2196F3;
+    --red: #EF9A9A;
+    --hover-red: #EF5350;
+    --green: #13CE66;
+}
+  
+* {
+    box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: #999
+}
+
+::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0.08);
+}
+
+body {
+    font-family: "Open Sans", sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f6f6f6;
+    background-position: -15px -15px;
+    background-image: radial-gradient(#d0d0d0 1px, transparent 0);
+    background-size: 20px 20px;
+}
+
+.buttons {
+    width: fit-content;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    right: 20px;
+    top: 20px;
+    position: fixed;
+    cursor: auto;
+}
+
+#createNoteBtn, #clearAllNotesBtn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    font-family: "Open Sans", sans-serif;
+    font-size: 14px;
+    color: #FFF;
+    border: 0;
+    outline: none;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 6px 10px;
+    transition: all 0.1s ease;
+}
+
+#createNoteBtn {
+    background-color: var(--blue);
+}
+
+#createNoteBtn:hover {
+    background-color: var(--hover-blue);
+}
+
+#clearAllNotesBtn {
+    background-color: var(--red);
+}
+
+#clearAllNotesBtn:hover {
+    background-color: var(--hover-red);
+}
+
+#createNoteBtn i, #clearAllNotesBtn i {
+    font-size: 18px;
+}
+
+.note {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: fit-content;
+    height: fit-content;
+    position: absolute;
+    border-radius: 4px;
+    background-color: #FFF;
+    box-shadow: 0px 3px 10px -1px rgba(0,0,0,0.16);
+    z-index: 1;
+    user-select: none;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: end;
+    width: 100%;
+    padding: 0 5px;
+    background-color: #e0e0e0;
+}
+
+.trash {
+    cursor: pointer;
+    width: fit-content;
+    font-size: 16px;
+}
+
+.note .trash:hover {
+    color: var(--red);
+}
+
+.note textarea {
+    font-family: "Open Sans", sans-serif;
+    font-size: 13px;
+    width: 100%;
+    border: none;
+    resize: none;
+    outline: transparent;
+    background-color: transparent;
+    min-width: 250px;
+    min-height: 50px;
+    padding: 8px;
+    height: fit-content;
+    box-sizing: border-box;
+    overflow: hidden;
+    word-wrap: break-word;
+    border-radius: 3px;
+    transition: all .2s ease-in-out;
+}
+
+.note textarea::placeholder {
+    color: #CCC;
+}
+
+.note textarea:focus::placeholder {
+    color: transparent;
+}
