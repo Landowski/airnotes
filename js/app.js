@@ -153,12 +153,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 
     function clearAllNotes() {
+    if (notes.length > 0) {
         if (confirm('Are you sure you want to delete all notes?')) {
             notes = [];
             localStorage.removeItem('notes');
             renderNotes();
         }
     }
+}
 
     renderNotes();
     setTimeout(simulateHeaderClick, 100);
