@@ -1,5 +1,8 @@
 document.addEventListener('DOMContentLoaded', (event) => {
+    const sidebar = document.getElementById('sidebar');
+    const notesList = document.getElementById('notesList');
     const createNoteBtn = document.getElementById('createNoteBtn');
+    const sidebarBtn = document.getElementById('sidebarBtn');
     const clearAllNotesBtn = document.getElementById('clearAllNotesBtn');
     const container = document.getElementById('container');
 
@@ -16,6 +19,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     setTimeout(start, 100);
 
     createNoteBtn.addEventListener('click', createNote);
+    sidebarBtn.addEventListener('click', toggleSidebar);
     clearAllNotesBtn.addEventListener('click', clearAllNotes);
 
     function createNote() {
@@ -102,6 +106,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         });
 
         adjustTextareaHeight();
+        renderSidebar();
     }
 
     function simulateHeaderClick() {
@@ -131,6 +136,23 @@ document.addEventListener('DOMContentLoaded', (event) => {
         });
     }
 
+    function renderSidebar() {
+        notesList.innerHTML = '';
+        notes.forEach(note => {
+            const listItem = document.createElement('li');
+            listItem.innerHTML = `
+                <span>Note ${note.id}</span>
+                <i class="las la-trash-alt" data-id="${note.id}"></i>
+            `;
+            notesList.appendChild(listItem);
+
+            listItem.querySelector('i').addEventListener('click', (e) => {
+                const noteId = e.target.getAttribute('data-id');
+                deleteNote(Number(noteId));
+            });
+        });
+    }
+
     function updateNoteContent(id, content) {
         notes = notes.map(note => note.id === id ? { ...note, content } : note);
         localStorage.setItem('notes', JSON.stringify(notes));
@@ -153,14 +175,18 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 
     function clearAllNotes() {
-    if (notes.length > 0) {
-        if (confirm('Are you sure you want to delete all notes?')) {
-            notes = [];
-            localStorage.removeItem('notes');
-            renderNotes();
+        if (notes.length > 0) {
+            if (confirm('Are you sure you want to delete all notes?')) {
+                notes = [];
+                localStorage.removeItem('notes');
+                renderNotes();
+            }
         }
     }
-}
+
+    function toggleSidebar(){
+        document.getElementById("sidebar").classList.toggle('active');
+    }
 
     renderNotes();
     setTimeout(simulateHeaderClick, 100);
