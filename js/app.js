@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', (event) => {
-    const sidebar = document.getElementById('sidebar');
     const notesList = document.getElementById('notesList');
+    const nothingHere = document.getElementById('nothingHere');
     const createNoteBtn = document.getElementById('createNoteBtn');
     const sidebarBtn = document.getElementById('sidebarBtn');
     const clearAllNotesBtn = document.getElementById('clearAllNotesBtn');
@@ -35,6 +35,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         notes.push(note);
         localStorage.setItem('notes', JSON.stringify(notes));
         renderNotes();
+        renderSidebar();
         setTimeout(simulateHeaderClick, 100);
     }
     
@@ -45,6 +46,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             noteElement.classList.add('note');
             noteElement.style.left = note.position.left;
             noteElement.style.top = note.position.top;
+            noteElement.dataset.id = note.id;
             noteElement.innerHTML = `
                 <div class="header">
                     <div class="trash"><i class="las la-trash-alt"></i></div>
@@ -106,7 +108,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
         });
 
         adjustTextareaHeight();
-        renderSidebar();
     }
 
     function simulateHeaderClick() {
@@ -137,25 +138,62 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 
     function renderSidebar() {
-        notesList.innerHTML = '';
-        notes.forEach(note => {
-            const listItem = document.createElement('li');
-            listItem.innerHTML = `
-                <span>Note ${note.id}</span>
-                <i class="las la-trash-alt" data-id="${note.id}"></i>
-            `;
-            notesList.appendChild(listItem);
+        if (notes.length > 0) {
+            notesList.innerHTML = '';
+            nothingHere.style.display = 'none';
+            notesList.style.display = 'block';
+            notes.forEach(note => {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `
+                    <span>${note.content.trim() === '' ? 'Empty' : note.content}</span>
+                    <div>
+                        <i class="las la-trash-alt trash" data-id="${note.id}"></i>
+                        <i class="las la-map-marker locate" data-id="${note.id}"></i>
+                    </div>
+                `;
+                notesList.appendChild(listItem);
 
-            listItem.querySelector('i').addEventListener('click', (e) => {
-                const noteId = e.target.getAttribute('data-id');
-                deleteNote(Number(noteId));
+                listItem.querySelector('.trash').addEventListener('click', (e) => {
+                    const noteId = e.target.getAttribute('data-id');
+                    deleteNote(Number(noteId));
+                });
+
+                listItem.querySelector('.locate').addEventListener('click', (e) => {
+                    const noteId = e.target.getAttribute('data-id');
+                    locateNote(Number(noteId));
+                });
             });
-        });
+        } else {
+            notesList.style.display = 'none';
+            nothingHere.style.display = 'block';
+            nothingHere.textContent = 'Nothing here.';
+        }
+    }
+
+    function locateNote(id) {
+        const noteElement = document.querySelector(`.note[data-id="${id}"]`);
+        if (noteElement) {
+            const rect = noteElement.getBoundingClientRect();
+            const isVisible = (rect.top >= 0 && rect.bottom <= window.innerHeight) && 
+                              (rect.left >= 0 && rect.right <= window.innerWidth);
+
+            if (!isVisible) {
+                noteElement.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+            }
+
+            // Highlight the note briefly
+            noteElement.style.transition = 'box-shadow 0.3s ease-in-out';
+            noteElement.style.boxShadow = '0px 0px 25px 0px rgba(0,0,0,0.5)';
+            setTimeout(() => {
+                noteElement.style.boxShadow = '';
+            }, 1500);
+        }
     }
 
     function updateNoteContent(id, content) {
         notes = notes.map(note => note.id === id ? { ...note, content } : note);
         localStorage.setItem('notes', JSON.stringify(notes));
+        renderSidebar();
     }
 
     function updateNotePosition(id, left, top) {
@@ -171,6 +209,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             notes = notes.filter(note => note.id !== id);
             localStorage.setItem('notes', JSON.stringify(notes));
             renderNotes();
+            renderSidebar();
         }
     }
 
@@ -179,15 +218,19 @@ document.addEventListener('DOMContentLoaded', (event) => {
             if (confirm('Are you sure you want to delete all notes?')) {
                 notes = [];
                 localStorage.removeItem('notes');
+                toggleSidebar();
                 renderNotes();
+                renderSidebar();
             }
         }
     }
 
     function toggleSidebar(){
         document.getElementById("sidebar").classList.toggle('active');
+        renderSidebar();
     }
 
     renderNotes();
+    renderSidebar();
     setTimeout(simulateHeaderClick, 100);
 });

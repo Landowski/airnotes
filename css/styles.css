@@ -52,10 +52,31 @@ body {
     box-shadow: 3px 0px 10px -1px rgba(0,0,0,0.16);
     z-index: 9999;
     cursor: auto;
+    font-size: 13px;
 }
 
 #sidebar.active {
     left: 0px;
+}
+
+#sidebar ul {
+    list-style-type: none;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+}
+
+#sidebar li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 8px 12px;
+}
+
+#sidebar li:last-child {
+    border-bottom: none;
 }
 
 .buttons {
@@ -95,11 +116,16 @@ body {
 }
 
 #clearAllNotesBtn {
+    width: fit-content;
+    margin-bottom: 20px;
+    border: 1px solid var(--red);
     background-color: var(--red);
+    color: #fff;
 }
 
 #clearAllNotesBtn:hover {
     background-color: var(--hover-red);
+    border: 1px solid var(--hover-red);
 }
 
 #createNoteBtn i, #clearAllNotesBtn i, #sidebarBtn i {
@@ -131,15 +157,19 @@ body {
     background-color: #e0e0e0;
 }
 
-.trash {
+.trash, .locate {
     cursor: pointer;
     width: fit-content;
     font-size: 16px;
     color: #999;
 }
 
-.note .trash:hover {
-    color: var(--red);
+.trash:hover {
+    color: var(--hover-red);
+}
+
+.locate:hover {
+    color: var(--hover-blue);
 }
 
 .note textarea {
