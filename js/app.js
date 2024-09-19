@@ -5,6 +5,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const sidebarBtn = document.getElementById('sidebarBtn');
     const clearAllNotesBtn = document.getElementById('clearAllNotesBtn');
     const container = document.getElementById('container');
+    const sidebar = document.getElementById('sidebar');
+    const help = document.getElementById('help');
+    const overlay = document.getElementById('overlay');
+    const okPopup = document.getElementById('okPopup');
 
     let notes = JSON.parse(localStorage.getItem('notes')) || [];
     let offsetX, offsetY;
@@ -21,6 +25,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
     createNoteBtn.addEventListener('click', createNote);
     sidebarBtn.addEventListener('click', toggleSidebar);
     clearAllNotesBtn.addEventListener('click', clearAllNotes);
+
+    help.addEventListener('click', popup);
+    overlay.addEventListener('click', popup);
+    okPopup.addEventListener('click', function(event) {
+        event.stopPropagation();
+        popup();
+    });
 
     function createNote() {
         const noteWidth = 250;
@@ -225,9 +236,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
     }
 
-    function toggleSidebar(){
-        document.getElementById("sidebar").classList.toggle('active');
+    function toggleSidebar() {
+        sidebar.classList.toggle('active');
         renderSidebar();
+    }
+
+    function popup() {
+        overlay.classList.toggle('active');
     }
 
     renderNotes();
