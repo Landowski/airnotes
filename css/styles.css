@@ -14,45 +14,53 @@
 }
 
 ::-webkit-scrollbar {
-    width: 12px;
-    height: 12px;
+    width: 10px;
+    height: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-    border-radius: 4px;
-    background-color: #999
+    border-radius: 360px;
+    background-color: #CCC;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    border-radius: 360px;
+    background-color: #BBB;
 }
 
 ::-webkit-scrollbar-track {
-    background-color: rgba(0, 0, 0, 0.08);
+    background-color: transparent !important
 }
 
 body {
     font-family: "Open Sans", sans-serif;
     margin: 0;
     padding: 0;
-    background: #f6f6f6;
+    min-width: fit-content;
+    min-height: fit-content;
+    background: #fff;
     background-position: -15px -15px;
-    background-image: radial-gradient(#d0d0d0 1px, transparent 0);
+    background-image: radial-gradient(#e0e0e0 1px, transparent 0);
     background-size: 20px 20px;
 }
 
 #sidebar {
-    width: 350px;
+    width: 340px;
     height: 100%;
     position: fixed;
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    align-items: center;
     left: -400px;
-    top: 0;
-    bottom: 0;
-    background-color: white;
+    margin: 0;
+    padding-top: 20px;
+    background-color: #fff;
     transition: all 300ms linear;
     box-shadow: 3px 0px 10px -1px rgba(0,0,0,0.16);
     z-index: 9999;
-    cursor: auto;
     font-size: 13px;
+    overflow: auto;
+    border-right: 1px solid #e0e0e0;
 }
 
 #sidebar.active {
@@ -60,23 +68,40 @@ body {
 }
 
 #sidebar ul {
+    width: 100%;
     list-style-type: none;
     padding: 0 !important;
     margin: 0 !important;
-    border: 1px solid #e0e0e0;
-    border-radius: 4px;
 }
 
-#sidebar li {
+#sidebar > ul > li {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 15px;
     border-bottom: 1px solid #e0e0e0;
-    padding: 8px 12px;
+    padding: 8px 12px 12px 0;
 }
 
-#sidebar li:last-child {
-    border-bottom: none;
+#sidebar > ul > li:first-child {
+    border-top: 1px solid #e0e0e0;
+}
+
+#sidebar li div li {
+    border: none;
+}
+
+#sidebar li img {
+    width: 100%;
+    height: auto;
+}
+
+#close {
+    width: fit-content;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
 }
 
 .buttons {
@@ -87,10 +112,11 @@ body {
     right: 20px;
     top: 20px;
     position: fixed;
-    cursor: auto;
+    gap: 2px;
+    z-index: 999999999999;
 }
 
-#createNoteBtn, #clearAllNotesBtn, #sidebarBtn, #help {
+#createNoteBtn, #clearAllNotesBtn, #sidebarBtn, #darkMode, #help {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -99,18 +125,15 @@ body {
     font-family: "Open Sans", sans-serif;
     font-size: 14px;
     border: none;
-    color: #555;
+    color: #555 !important;
     outline: none;
-    border-radius: 4px;
     cursor: pointer;
-    padding: 3px;
     background-color: transparent;
     transition: all 0.1s ease;
 }
 
-#createNoteBtn:hover, #sidebarBtn:hover, #help:hover {
-    background-color: #e0e0e0;
-    color: var(--black);
+#createNoteBtn:hover, #sidebarBtn:hover, #darkMode:hover, #help:hover {
+    fill: red;
 }
 
 #clearAllNotesBtn {
@@ -132,16 +155,13 @@ body {
 }
 
 .note {
-    overflow: hidden;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: fit-content;
     height: fit-content;
     position: absolute;
-    border-radius: 4px;
-    background-color: #FFF;
-    box-shadow: 0px 3px 10px -1px rgba(0,0,0,0.16);
+    border-radius: 2px;
+    box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.2);
     z-index: 1;
     user-select: none;
 }
@@ -150,16 +170,40 @@ body {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: end;
+    justify-content: space-between;
     width: 100%;
-    padding: 0 5px;
-    background-color: #e0e0e0;
+    padding: 2px 5px;
+    cursor: grab;
+    color: #181818;
+    border-top-left-radius: 1px;
+    border-top-right-radius: 1px;
+}
+
+.date-hour {
+    width: fit-content;
+    font-size: 10px;
+    visibility: hidden;
+}
+
+.header:hover .date-hour {
+    visibility: visible;
+}
+
+.note-icons {
+    cursor: pointer;
+    width: fit-content;
+    font-size: 16px;
+    visibility: hidden;
+}
+
+.header:hover .note-icons {
+    visibility: visible;
 }
 
 .trash, .locate {
     cursor: pointer;
     width: fit-content;
-    font-size: 16px;
+    font-size: 20px;
     color: #999;
 }
 
@@ -171,31 +215,50 @@ body {
     color: var(--hover-blue);
 }
 
-.note textarea {
+.menu {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 5px;
+    gap: 10px;
+}
+
+.menu i {
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.menu select {
+    outline: none;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 11px;
+}
+
+.editor {
     font-family: "Open Sans", sans-serif;
     font-size: 13px;
     width: 100%;
     border: none;
     resize: none;
-    outline: transparent;
+    outline: none;
     background-color: transparent;
-    min-width: 250px;
-    min-height: 50px;
+    min-width: 270px;
     padding: 8px;
-    height: fit-content;
     box-sizing: border-box;
     overflow: hidden;
     word-wrap: break-word;
-    border-radius: 3px;
-    transition: all .2s ease-in-out;
+    resize: horizontal;
 }
 
-.note textarea::placeholder {
-    color: #CCC;
+.editor img {
+    width: 100%;
+    height: auto;
 }
 
-.note textarea:focus::placeholder {
-    color: transparent;
+.editor a {
+    cursor: pointer;
 }
 
 #overlay {
@@ -204,10 +267,9 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.3);
     visibility: hidden;
     z-index: 99999;
-    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -225,9 +287,8 @@ body {
     gap: 20px;
     background-color: #fff;
     padding: 20px;
-    border-radius: 4px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    cursor: auto;
+    border-radius: 2px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 6px;
     font-size: 15px;
 }
 
@@ -241,4 +302,105 @@ body {
     border-radius: 4px;
     background-color: var(--main);
     color: white;
+}
+
+.color-options {
+    position: absolute;
+    top: 20px;
+    right: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+.color-option {
+    width: 15px;
+    height: 15px;
+    border-radius: 3px;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.color-option[data-color="default"] {
+    background-color: #f9f9f9;
+}
+
+.color-option[data-color="red"] {
+    background-color: #FFCDD2;
+}
+
+.color-option[data-color="pink"] {
+    background-color: #F8BBD0;
+}
+
+.color-option[data-color="purple"] {
+    background-color: #E1BEE7;
+}
+
+.color-option[data-color="deep-purple"] {
+    background-color: #D1C4E9;
+}
+
+.color-option[data-color="indigo"] {
+    background-color: #C5CAE9;
+}
+
+.color-option[data-color="blue"] {
+    background-color: #BBDEFB;
+}
+
+.color-option[data-color="light-blue"] {
+    background-color: #B3E5FC;
+}
+
+.color-option[data-color="cyan"] {
+    background-color: #B2EBF2;
+}
+
+.color-option[data-color="teal"] {
+    background-color: #B2DFDB;
+}
+
+.color-option[data-color="green"] {
+    background-color: #C8E6C9;
+}
+
+.color-option[data-color="light-green"] {
+    background-color: #DCEDC8;
+}
+
+.color-option[data-color="lime"] {
+    background-color: #F0F4C3;
+}
+
+.color-option[data-color="yellow"] {
+    background-color: #FFF9C4;
+}
+
+.color-option[data-color="amber"] {
+    background-color: #FFECB3;
+}
+
+.color-option[data-color="orange"] {
+    background-color: #FFE0B2;
+}
+
+.color-option[data-color="deep-orange"] {
+    background-color: #FFCCBC;
+}
+
+.color-option[data-color="brown"] {
+    background-color: #D7CCC8;
+}
+
+.color-option[data-color="grey"] {
+    background-color: #F5F5F5;
+}
+
+.color-option[data-color="blue-grey"] {
+    background-color: #CFD8DC;
 }

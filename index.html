@@ -11,23 +11,27 @@
 <link rel="canonical” href="https://snotes.site">
 <link rel="icon" type="image/png" href="images/favicon.png">
 <link rel= "stylesheet" href= "css/styles.css" >
+<link rel= "stylesheet" href= "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" >
 <link rel= "stylesheet" href= "https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" >
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 </head>
 <body>
 
     <div id="sidebar">
         <button id="clearAllNotesBtn"><i class="las la-exclamation-triangle"></i> Clear All</button>
+        <div id="close"><i class="las la-times" style="font-size: 18px"></i></div>
         <ul id="notesList"></ul>
         <span id="nothingHere"></span>
     </div>
     
     <div class="buttons">
-        <button id="createNoteBtn"><i class="las la-sticky-note"></i></button>
-        <button id="sidebarBtn"><i class="las la-th-list"></i></button>
-        <button id="help"><i class="las la-question-circle"></i></button>
+        <button id="createNoteBtn"><box-icon type='solid' name='note'></box-icon></button>
+        <button id="sidebarBtn"><box-icon type='solid' name='layer'></box-icon></button>
+        <button id="darkMode"><box-icon type='solid' name='moon'></box-icon></button>
+        <button id="help"><box-icon name='question-mark'></box-icon></button>
     </div>
     
     <div id="overlay">
