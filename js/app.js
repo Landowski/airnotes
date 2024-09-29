@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', (event) => {
+    loadDarkMode();
     const notesList = document.getElementById('notesList');
     const nothingHere = document.getElementById('nothingHere');
     const createNoteBtn = document.getElementById('createNoteBtn');
@@ -10,8 +11,20 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const help = document.getElementById('help');
     const overlay = document.getElementById('overlay');
     const okPopup = document.getElementById('okPopup');
+    const darkModeToggle = document.getElementById('darkMode');
     let notes = JSON.parse(localStorage.getItem('notes')) || [];
     let offsetX, offsetY;
+
+    function loadDarkMode() {
+        const isDarkMode = localStorage.getItem('darkMode') === 'true';
+        if (isDarkMode) {
+            document.body.classList.add('dark');
+            document.body.classList.remove('light');
+        } else {
+            document.body.classList.add('light');
+            document.body.classList.remove('dark');
+        }
+    }
 
     createNoteBtn.addEventListener('click', createNote);
     sidebarBtn.addEventListener('click', toggleSidebar);
@@ -24,6 +37,20 @@ document.addEventListener('DOMContentLoaded', (event) => {
         event.stopPropagation();
         popup();
     });
+
+    function toggleDarkMode() {
+        const elementsToToggle = document.querySelectorAll('.light, .dark');
+        const isDarkMode = document.body.classList.contains('dark');
+        
+        elementsToToggle.forEach(element => {
+            element.classList.toggle('light');
+            element.classList.toggle('dark');
+        });
+        
+        localStorage.setItem('darkMode', !isDarkMode);
+    }
+      
+      darkModeToggle.addEventListener('click', toggleDarkMode);
 
     function createNote() {
         const noteWidth = 270;
@@ -61,9 +88,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
     
     function renderNotes() {
         container.innerHTML = '';
+        const isDarkMode = document.body.classList.contains('dark');
         notes.forEach(note => {
             const noteElement = document.createElement('div');
             noteElement.classList.add('note');
+            noteElement.classList.add(isDarkMode ? 'dark' : 'light');
             noteElement.style.left = note.position.left;
             noteElement.style.top = note.position.top;
             noteElement.dataset.id = note.id;
@@ -507,9 +536,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 listItem.style.paddingLeft = '10px';
                 listItem.innerHTML = `
                     <span style="width: 80%;">${note.content ? (note.content.trim() === '' ? 'Empty' : note.content) : 'Empty'}</span>
-                    <div>
-                        <i class="las la-trash-alt trash" data-id="${note.id}"></i>
-                        <i class="las la-map-marker locate" data-id="${note.id}"></i>
+                    <div style="display: flex; align-items: center; justify-content: center;">
+                        <svg  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-trash trash" data-id="${note.id}"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>
+                        <svg  xmlns="http://www.w3.org/2000/svg"  width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-map-pin locate" data-id="${note.id}"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /><path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z" /></svg>
                     </div>
                 `;
                 notesList.appendChild(listItem);
