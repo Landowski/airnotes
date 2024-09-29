@@ -64,17 +64,24 @@ body.dark {
     left: -400px;
     margin: 0;
     padding-top: 20px;
-    background-color: #fff;
     transition: all 300ms linear;
-    box-shadow: 3px 0px 10px -1px rgba(60,72,88,0.2);
     z-index: 9999;
     font-size: 13px;
     overflow: auto;
-    border-right: 1px solid #e0e6ed;
 }
 
-#sidebar.active {
+#sidebar.active.light {
     left: 0px;
+    border-right: 1px solid #e0e6ed;
+    background-color: #fff;
+    box-shadow: 3px 0px 10px -1px rgba(60,72,88,0.2);
+}
+
+#sidebar.active.dark {
+    left: 0px;
+    border-right: none;
+    background-color: #1F2D3D;
+    box-shadow: 3px 0px 10px -1px rgba(224,230,237,0.2);
 }
 
 #sidebar ul {
@@ -112,6 +119,14 @@ body.dark {
     top: 10px;
     right: 10px;
     cursor: pointer;
+}
+
+#close.light {
+    color: #8492A6;
+}
+
+#close.dark {
+    color: #3C4858;
 }
 
 .buttons {
@@ -173,8 +188,6 @@ body.dark {
     width: fit-content;
     padding: 5px 10px;
     margin-bottom: 20px;
-    background-color: #f9fafc;
-    color: #8492a6;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -187,9 +200,20 @@ body.dark {
     cursor: pointer;
     transition: all 0.1s ease;
     border-radius: 4px;
-    stroke: #8492a6;
     align-self: flex-start;
     margin-left: 10px;
+}
+
+#clearAllNotesBtn.light {
+    stroke: #8492a6;
+    background-color: #f9fafc;
+    color: #8492a6;
+}
+
+#clearAllNotesBtn.dark {
+    stroke: #8492a6;
+    background-color: #273444;
+    color: #8492a6;
 }
 
 #clearAllNotesBtn:hover {
@@ -198,8 +222,12 @@ body.dark {
     color: #ffffff;
 }
 
-#createNoteBtn i, #sidebarBtn i, #help i {
-    font-size: 24px;
+#nothingHere.light {
+    color: #1F2D3D;
+}
+
+#nothingHere.dark {
+    color: #8492A6;
 }
 
 .note {
@@ -215,7 +243,7 @@ body.dark {
 }
 
 .note.dark {
-    filter: brightness(85%)
+    filter: brightness(80%)
 }
 
 .header {

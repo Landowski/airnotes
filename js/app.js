@@ -17,13 +17,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     function loadDarkMode() {
         const isDarkMode = localStorage.getItem('darkMode') === 'true';
-        if (isDarkMode) {
-            document.body.classList.add('dark');
-            document.body.classList.remove('light');
-        } else {
-            document.body.classList.add('light');
-            document.body.classList.remove('dark');
-        }
+        const elementsToToggle = document.querySelectorAll('body, #sidebar, #clearAllNotesBtn, #nothingHere');
+        elementsToToggle.forEach(element => {
+            if (isDarkMode) {
+                element.classList.add('dark');
+                element.classList.remove('light');
+            } else {
+                element.classList.add('light');
+                element.classList.remove('dark');
+            }
+        });
     }
 
     createNoteBtn.addEventListener('click', createNote);
@@ -39,7 +42,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
 
     function toggleDarkMode() {
-        const elementsToToggle = document.querySelectorAll('.light, .dark');
+        const elementsToToggle = document.querySelectorAll('body, #sidebar, .note, #clearAllNotesBtn, #nothingHere');
         const isDarkMode = document.body.classList.contains('dark');
         
         elementsToToggle.forEach(element => {
@@ -50,7 +53,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
         localStorage.setItem('darkMode', !isDarkMode);
     }
       
-      darkModeToggle.addEventListener('click', toggleDarkMode);
+    darkModeToggle.addEventListener('click', () => {
+        toggleDarkMode();
+        renderNotes();
+    });
 
     function createNote() {
         const noteWidth = 270;
