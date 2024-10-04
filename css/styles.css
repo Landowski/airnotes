@@ -248,7 +248,7 @@ body.dark::-webkit-scrollbar-track {
 
 #clearAllNotesBtn {
     width: fit-content;
-    padding: 5px 10px;
+    padding: 5px;
     margin-bottom: 20px;
     display: flex;
     flex-direction: row;
@@ -256,7 +256,7 @@ body.dark::-webkit-scrollbar-track {
     justify-content: center;
     gap: 3px;
     font-family: "Open Sans", sans-serif;
-    font-size: 14px;
+    font-size: 13px;
     border: none;
     outline: none;
     cursor: pointer;
