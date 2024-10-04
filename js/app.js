@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     function loadDarkMode() {
         const isDarkMode = localStorage.getItem('darkMode') === 'true';
-        const elementsToToggle = document.querySelectorAll('body, #sidebar, #clearAllNotesBtn, #nothingHere');
+        const elementsToToggle = document.querySelectorAll('body, #sidebar, #clearAllNotesBtn, #nothingHere, .buttons, #createNoteBtn, #sidebarBtn, #help, #darkMode, .icon-tabler-trash, .icon-tabler-map-pin');
         elementsToToggle.forEach(element => {
             if (isDarkMode) {
                 element.classList.add('dark');
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
 
     function toggleDarkMode() {
-        const elementsToToggle = document.querySelectorAll('body, #sidebar, .note, #clearAllNotesBtn, #nothingHere');
+        const elementsToToggle = document.querySelectorAll('body, #sidebar, .note, #clearAllNotesBtn, #nothingHere, .buttons, #createNoteBtn, #sidebarBtn, #help, #darkMode, .icon-tabler-trash, .icon-tabler-map-pin');
         const isDarkMode = document.body.classList.contains('dark');
         
         elementsToToggle.forEach(element => {
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
 
     function createNote() {
-        const noteWidth = 270;
+        const noteWidth = 264;
         const noteHeight = 110;
         const left = (window.innerWidth - noteWidth) / 2 + window.scrollX;
         const top = (window.innerHeight - noteHeight) / 2 + window.scrollY;
@@ -176,7 +176,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 updateNoteWidth(note.id, currentWidth);
             });
             
-            editor.style.width = note.width || '270px';
+            editor.style.width = note.width || '264px';
 
             const header = noteElement.querySelector('.header');
             const rotateIcon = noteElement.querySelector('.rotate-note');
@@ -441,9 +441,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 editor.style.backgroundColor = '#EDE7F6';
                 break;
             case 'indigo':
-                    header.style.backgroundColor = '#C5CAE9';
-                    menu.style.backgroundColor = '#E8EAF6';
-                    editor.style.backgroundColor = '#E8EAF6';
+                header.style.backgroundColor = '#C5CAE9';
+                menu.style.backgroundColor = '#E8EAF6';
+                editor.style.backgroundColor = '#E8EAF6';
                     break;
             case 'blue':
                 header.style.backgroundColor = '#BBDEFB';
@@ -519,6 +519,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 header.style.backgroundColor = '#f9f9f9';
                 menu.style.backgroundColor = '#ffffff';
                 editor.style.backgroundColor = '#ffffff';
+                noteElement.style.boxShadow = '0px 0px 4px 0px rgba(60, 72, 88, 0.2)';
                 break;
         }
     }
@@ -543,8 +544,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 listItem.innerHTML = `
                     <span style="width: 80%;">${note.content ? (note.content.trim() === '' ? 'Empty' : note.content) : 'Empty'}</span>
                     <div style="display: flex; align-items: center; justify-content: center;">
-                        <svg  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-trash trash" data-id="${note.id}"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>
-                        <svg  xmlns="http://www.w3.org/2000/svg"  width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-map-pin locate" data-id="${note.id}"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /><path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z" /></svg>
+                        <svg  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-trash trash light" data-id="${note.id}"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>
+                        <svg  xmlns="http://www.w3.org/2000/svg"  width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-map-pin locate light" data-id="${note.id}"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /><path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z" /></svg>
                     </div>
                 `;
                 notesList.appendChild(listItem);
@@ -622,11 +623,19 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 noteElement.scrollIntoView({ behavior: 'instant', block: 'center', inline: 'center' });
             }
 
-            noteElement.style.transition = 'box-shadow 0.3s ease-in-out';
-            noteElement.style.boxShadow = '0px 0px 25px 0px rgba(0,0,0,0.5)';
-            setTimeout(() => {
-                noteElement.style.boxShadow = '';
-            }, 1500);
+            if (noteElement.classList.contains('light')) {
+                noteElement.style.transition = 'box-shadow 0.3s ease-in-out';
+                noteElement.style.boxShadow = '0px 0px 25px 0px rgba(0,0,0,0.5)';
+                setTimeout(() => {
+                    noteElement.style.boxShadow = '';
+                }, 1500);
+            } else {
+                noteElement.style.transition = 'box-shadow 0.3s ease-in-out';
+                noteElement.style.boxShadow = '0px 0px 25px 0px rgba(255,255,255,0.7)';
+                setTimeout(() => {
+                    noteElement.style.boxShadow = '';
+                }, 1500);
+            }
         }
     }
 

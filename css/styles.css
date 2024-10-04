@@ -13,25 +13,6 @@
     box-sizing: border-box;
 }
 
-::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
-}
-
-::-webkit-scrollbar-thumb {
-    border-radius: 360px;
-    background-color: #D3DCE6;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    border-radius: 360px;
-    background-color: #8492A6;
-}
-
-::-webkit-scrollbar-track {
-    background-color: transparent !important
-}
-
 body {
     font-family: "Open Sans", sans-serif;
     margin: 0;
@@ -43,15 +24,53 @@ body {
 body.light {
     background: #fff;
     background-position: -15px -15px;
-    background-image: radial-gradient(#E0E6ED 1px, transparent 0);
+    background-image: radial-gradient(#E2E2E2 1px, transparent 0);
     background-size: 20px 20px;
 }
 
+body.light::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+body.light::-webkit-scrollbar-thumb {
+    border-radius: 360px;
+    background-color: #D3DCE6;
+}
+
+body.light::-webkit-scrollbar-thumb:hover {
+    border-radius: 360px;
+    background-color: #8492A6;
+}
+
+body.light::-webkit-scrollbar-track {
+    background-color: transparent !important
+}
+
 body.dark {
-    background: #1f2d3d;
+    background: #222;
     background-position: -15px -15px;
-    background-image: radial-gradient(#3c4858 1px, transparent 0);
+    background-image: radial-gradient(#333 1px, transparent 0);
     background-size: 20px 20px;
+}
+
+body.dark::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+body.dark::-webkit-scrollbar-thumb {
+    border-radius: 360px;
+    background-color: #3C4858;
+}
+
+body.dark::-webkit-scrollbar-thumb:hover {
+    border-radius: 360px;
+    background-color: #485669;
+}
+
+body.dark::-webkit-scrollbar-track {
+    background-color: transparent !important
 }
 
 #sidebar {
@@ -72,16 +91,13 @@ body.dark {
 
 #sidebar.active.light {
     left: 0px;
-    border-right: 1px solid #e0e6ed;
     background-color: #fff;
-    box-shadow: 3px 0px 10px -1px rgba(60,72,88,0.2);
+    box-shadow: 3px 0px 10px -1px #00000020;
 }
 
 #sidebar.active.dark {
     left: 0px;
-    border-right: none;
-    background-color: #1F2D3D;
-    box-shadow: 3px 0px 10px -1px rgba(224,230,237,0.2);
+    background-color: #1d1d1d;
 }
 
 #sidebar ul {
@@ -96,12 +112,26 @@ body.dark {
     align-items: center;
     justify-content: space-between;
     gap: 15px;
-    border-bottom: 1px solid #e0e6ed;
     padding: 8px 8px 8px 0;
 }
 
-#sidebar > ul > li:first-child {
-    border-top: 1px solid #e0e6ed;
+#sidebar.active.light > ul > li {
+    border-bottom: 1px solid #e0e0e0;
+    color: #1F2D3D;
+}
+
+#sidebar.active.dark > ul > li {
+    border-bottom: 1px solid #2D2D2D;
+    color: #888;
+    filter: saturate(0.5);
+}
+
+#sidebar.active.light > ul > li:first-child {
+    border-top: 1px solid #e0e0e0;
+}
+
+#sidebar.active.dark > ul > li:first-child {
+    border-top: 1px solid #2D2D2D;
 }
 
 #sidebar li div li {
@@ -122,11 +152,11 @@ body.dark {
 }
 
 #close.light {
-    color: #8492A6;
+    color: #888;
 }
 
 #close.dark {
-    color: #3C4858;
+    color: #333;
 }
 
 .buttons {
@@ -139,10 +169,18 @@ body.dark {
     position: fixed;
     gap: 2px;
     z-index: 9999;
-    border: 1px solid #e0e6ed;
     padding: 4px;
-    background-color: #f9fafc;
     border-radius: 4px;
+}
+
+.buttons.light {
+    border: 1px solid #E3e3e3;
+    background-color: #f5f5f5;
+}
+
+.buttons.dark {
+    border: 1px solid transparent;
+    background-color: #3c3c3c;
 }
 
 #createNoteBtn, #sidebarBtn, #help {
@@ -156,7 +194,15 @@ body.dark {
     cursor: pointer;
     background-color: transparent;
     transition: all 0.1s ease;
-    stroke: #8492a6;
+}
+
+#createNoteBtn.light, #sidebarBtn.light, #help.light {
+    stroke: #888;
+    fill: none;
+}
+
+#createNoteBtn.dark, #sidebarBtn.dark, #help.dark {
+    stroke: #666;
     fill: none;
 }
 
@@ -171,17 +217,34 @@ body.dark {
     cursor: pointer;
     background-color: transparent;
     transition: all 0.1s ease;
-    stroke: #8492a6 !important;
-    fill: #8492a6 !important;
 }
 
-#createNoteBtn:hover, #sidebarBtn:hover, #help:hover {
-    stroke: #273444;
+#darkMode.light {
+    stroke: #888 !important;
+    fill: #888 !important;
 }
 
-#darkMode:hover {
-    stroke: #273444 !important;
-    fill: #273444 !important;
+#darkMode.dark {
+    stroke: #666;
+    fill: #666;
+}
+
+#createNoteBtn.light:hover, #sidebarBtn.light:hover, #help.light:hover {
+    stroke: #333;
+}
+
+#createNoteBtn.dark:hover, #sidebarBtn.dark:hover, #help.dark:hover {
+    stroke: #AAA;
+}
+
+#darkMode.light:hover {
+    stroke: #333 !important;
+    fill: #333 !important;
+}
+
+#darkMode.dark:hover {
+    stroke: #AAA !important;
+    fill: #AAA !important;
 }
 
 #clearAllNotesBtn {
@@ -205,15 +268,15 @@ body.dark {
 }
 
 #clearAllNotesBtn.light {
-    stroke: #8492a6;
-    background-color: #f9fafc;
-    color: #8492a6;
+    stroke: #888;
+    background-color: #f0f0f0;
+    color: #888;
 }
 
 #clearAllNotesBtn.dark {
-    stroke: #8492a6;
-    background-color: #273444;
-    color: #8492a6;
+    stroke: #888;
+    background-color: #333;
+    color: #888;
 }
 
 #clearAllNotesBtn:hover {
@@ -223,11 +286,11 @@ body.dark {
 }
 
 #nothingHere.light {
-    color: #1F2D3D;
+    color: #111;
 }
 
 #nothingHere.dark {
-    color: #8492A6;
+    color: #888;
 }
 
 .note {
@@ -236,14 +299,13 @@ body.dark {
     justify-content: space-between;
     height: fit-content;
     position: absolute;
-    border-radius: 2px;
-    box-shadow: 0px 0px 4px 0px rgba(60,72,88,0.2);
     z-index: 1;
     user-select: none;
 }
 
 .note.dark {
-    filter: brightness(80%)
+    filter: saturate(60%);
+    backface-visibility: hidden;
 }
 
 .header {
@@ -254,9 +316,7 @@ body.dark {
     width: 100%;
     padding: 2px 5px;
     cursor: grab;
-    color: #273444;
-    border-top-left-radius: 1px;
-    border-top-right-radius: 1px;
+    color: #333;
 }
 
 .date-hour {
@@ -283,7 +343,14 @@ body.dark {
 .trash, .locate {
     cursor: pointer;
     width: 18px;
-    color: #8492A6;
+}
+
+.icon-tabler-trash.light, .icon-tabler-map-pin.light {
+    color: #AAA;
+}
+
+.icon-tabler-trash.dark, .icon-tabler-map-pin.dark {
+    color: #555;
 }
 
 .trash:hover {
@@ -300,7 +367,7 @@ body.dark {
     align-items: center;
     padding: 5px;
     gap: 10px;
-    color: #8492A6;
+    color: #999;
 }
 
 .menu i {
@@ -311,9 +378,9 @@ body.dark {
 .menu select {
     font-family: "Open Sans", sans-serif;
     font-size: 13px;
-    color: #8492A6;
+    color: #666;
     outline: none;
-    border: 1px solid #e0e6ed;
+    border: 1px solid #e0e0e0;
     border-radius: 4px;
     cursor: pointer;
     font-size: 11px;
@@ -327,13 +394,13 @@ body.dark {
     resize: none;
     outline: none;
     background-color: transparent;
-    min-width: 270px;
+    min-width: 264px;
     padding: 8px;
     box-sizing: border-box;
     overflow: hidden;
     word-wrap: break-word;
     resize: horizontal;
-    color: #1F2D3D;
+    color: #111;
 }
 
 .editor img {
@@ -371,7 +438,7 @@ body.dark {
     gap: 20px;
     background-color: #fff;
     padding: 20px;
-    border-radius: 2px;
+    border-radius: 4px;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 6px;
     font-size: 15px;
 }
