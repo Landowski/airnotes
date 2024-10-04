@@ -263,7 +263,7 @@ body.dark::-webkit-scrollbar-track {
     transition: all 0.1s ease;
     border-radius: 4px;
     align-self: flex-start;
-    margin-left: 10px;
+    margin-top: 10px;
     margin-left: 10px;
 }
 
