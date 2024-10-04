@@ -38,10 +38,37 @@
     
     <div id="overlay">
         <div class="popup">
-          <span style="text-align: center; font-size: 16px; font-weight: 700;">HELP</span>
-          <span>
-            It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-          </span>
+          <div style="font-size: 20px; font-weight: 700;">HELP</div>
+            <div style="display: flex; gap: 20px;">
+                <div>
+                    <i class="las la-angle-double-up"></i> Bring note to front<br>
+                    <i class="las la-angle-double-down"></i> Send note to back<br>
+                    <i class="las la-palette"></i> Choose note color<br>
+                    <i class="las la-sync"></i> Rotate note<br>
+                    <i class="las la-times"></i> Delete note
+                </div>
+                <div>
+                    <i class="fa-solid fa-bold"></i> Bold text<br>
+                    <i class="fa-solid fa-italic"></i> Italic text<br>
+                    <i class="fa-solid fa-underline"></i> Underline text<br>
+                    <i class="fa-solid fa-align-left"></i> Align text left<br>
+                    <i class="fa-solid fa-align-center"></i> Align text center<br>
+                    <i class="fa-solid fa-align-right"></i> Align text right
+                </div>
+                <div>
+                    <i class="fa-solid fa-list list-button"></i> Unordered list<br>
+                    <i class="fa-solid fa-link link-button"></i> Link<br>
+                    <i class="fa-solid fa-image image-button"></i> Image<br>
+                    <i class="fa-solid fa-text-slash clear-format-button"></i> Remove formatting<br>
+                    <select style="font-family: 'Open Sans', sans-serif; font-size: 11px; color: #666; outline: none; border: 1px solid #e0e0e0; border-radius: 4px;">
+                        <option value="13px" selected>13</option>
+                    </select> Font size
+                </div>
+            </div>
+            <span style="text-align: center;">
+            To drag the note, position the mouse over its header, click, hold and drag to the desired position and release the mouse click.<br><br>
+            You can also increase or decrease the width of the note by holding click on the bottom right edge (on the two diagonal lines) and dragging to the desired size.
+            </span>
             <button id="okPopup">OK</button>
         </div>
     </div>

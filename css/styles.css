@@ -1,11 +1,7 @@
 :root {
     --main: #007BFF;
-    --black: #181818;
-    --gray: #555;
-    --blue: #90CAF9;
-    --hover-blue: #2196F3;
-    --red: #EF9A9A;
-    --hover-red: #EF5350;
+    --black: #111;
+    --red: #EF5350;
     --green: #13CE66;
 }
   
@@ -318,13 +314,13 @@ body.dark::-webkit-scrollbar-track {
 }
 
 #clearAllNotesBtn:hover {
-    background-color: var(--hover-red);
+    background-color: var(--red);
     stroke: #ffffff;
     color: #ffffff;
 }
 
 #nothingHere.light {
-    color: #111;
+    color: var(--black);
 }
 
 #nothingHere.dark {
@@ -392,11 +388,11 @@ body.dark::-webkit-scrollbar-track {
 }
 
 .trash:hover {
-    color: var(--hover-red);
+    color: var(--red);
 }
 
 .locate:hover {
-    color: var(--hover-blue);
+    color: var(--main);
 }
 
 .menu {
@@ -415,13 +411,12 @@ body.dark::-webkit-scrollbar-track {
 
 .menu select {
     font-family: "Open Sans", sans-serif;
-    font-size: 13px;
+    font-size: 11px;
     color: #666;
     outline: none;
     border: 1px solid #e0e0e0;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 11px;
 }
 
 .editor {
@@ -438,7 +433,7 @@ body.dark::-webkit-scrollbar-track {
     overflow: hidden;
     word-wrap: break-word;
     resize: horizontal;
-    color: #111;
+    color: var(--black);
 }
 
 .editor img {
@@ -469,7 +464,8 @@ body.dark::-webkit-scrollbar-track {
 }
 
 .popup {
-    width: 500px;
+    width: fit-content;
+    Max-width: 560px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -478,7 +474,9 @@ body.dark::-webkit-scrollbar-track {
     padding: 20px;
     border-radius: 4px;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 6px;
-    font-size: 15px;
+    font-size: 13px;
+    color: var(--black);
+    line-height: 1.5;
 }
 
 #okPopup {

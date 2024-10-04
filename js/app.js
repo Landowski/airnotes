@@ -35,7 +35,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
     clearAllNotesBtn.addEventListener('click', clearAllNotes);
 
     help.addEventListener('click', popup);
-    overlay.addEventListener('click', popup);
+    overlay.addEventListener('click', function(event) {
+        if (event.target === overlay) {
+            popup();
+        }
+    });
     okPopup.addEventListener('click', function(event) {
         event.stopPropagation();
         popup();
